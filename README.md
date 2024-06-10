@@ -1,6 +1,6 @@
 # Timestamp Microservice 
 
-[Express.js](https://expressjs.com/) Project that reproduces the timestamp microservice challenge for front-end development from FreeCodeCamp.org. The code is based on the boilerplate: [boilerplate-project-timestamp](https://github.com/freeCodeCamp/boilerplate-project-timestamp/).
+[Express.js](https://expressjs.com/) Project that reproduces the timestamp microservice challenge for back-end development from FreeCodeCamp.org. The code is based on the boilerplate: [boilerplate-project-timestamp](https://github.com/freeCodeCamp/boilerplate-project-timestamp/).
 
 # Dependencies
 The page uses:

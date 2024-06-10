@@ -13,3 +13,6 @@ https://www.regexgo.com/
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
 
 https://stackoverflow.com/questions/1353684/detecting-an-invalid-date-date-instance-in-javascript#comment7635649_1353684
+
+--- other links
+
