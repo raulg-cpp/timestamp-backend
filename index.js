@@ -14,10 +14,9 @@ app.get( "/api/:date?", // parameters embedded in :path
     console.log(input);
 
     const regNum = new RegExp('^[0-9]+$');
-    const regDate = new RegExp('\\d{2}-\\d{2}-\\d{4}');
 
     const isNum = regNum.test(input);
-    const isDate = regDate.test(input);
+    const isDate = !isNum && !isNaN(new Date(input));
     const isUndef = typeof(input) === 'undefined';
 
     let utc = '';
