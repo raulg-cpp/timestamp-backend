@@ -7,64 +7,49 @@ var app = express();
 
 //---------------- custom code ----------------
 
-app.get( "/api/:date", // parameters embedded in :path
+app.get( "/api/:date?", // parameters embedded in :path
   function( req, res ) {
-      // selection parameters
-      let date = req.params.date;
-      var num_date = Number(date); // in milliseconds
-      var unix_time = Date.parse(date);
+    // selection parameters
+    var input = req.params.date;
+    console.log(input);
 
-      // output date format
-      if( !isNaN(num_date) ) {
-        //console.log( "number" );
-        var num2date = new Date(num_date);
-        var date_utc = num2date.toUTCString();
+    const regNum = new RegExp('^[0-9]+$');
+    const regDate = new RegExp('\\d{2}-\\d{2}-\\d{4}');
 
-        var output = {
-          'unix': num_date,
-          'utc': date_utc
-        };
-        console.log(output);
-        res.send(output);
-      
-      // output date format
-      } else if( !isNaN(unix_time) ) { 
-        // console.log( "text" );
-        var unix_time = Date.parse(date);
-        var date_format = new Date(unix_time);  
-        var date_utc = date_format.toUTCString(); 
-        
-        let output = {
-          'unix': unix_time,
-          'utc': date_utc
-        };
-        console.log(output);
-        res.send(output);
+    const isNum = regNum.test(input);
+    const isDate = regDate.test(input);
+    const isUndef = typeof(input) === 'undefined';
 
-      // Bad input 
-      } else {
-        var output = { error : "Invalid Date" };
-        console.log(output);
-        res.send(output);
-      }
-  }
-);
+    let utc = '';
+    let unix = '';
 
-// Empty input | current date
-app.get( "/api/", 
-  function( req, res ) {
-    // get current time
-    var unix_time = Date.now();
-    var num2date = new Date(unix_time);
-    var date_utc = num2date.toUTCString();
+    // bad output
+    if( !(isNum || isDate || isUndef) ) {
+      console.log("error");
+      res.json( { error : "Invalid Date" } );
     
-    var output = {
-      'unix': unix_time,
-      'utc': date_utc
-    };
-    res.send(output);
+    // date output
+    } else {
+      if( isNum ) {
+        console.log("number");
+        unix = Number(input);
+      }
+      if( isDate ) {
+        console.log("date");
+        unix = Date.parse(input);     
+      }
+      if( isUndef ) {
+        console.log("no-input");
+        unix = Date.now();
+      }
+      
+      utc = new Date(unix);
+      utc = utc.toUTCString();
+      res.json( {'unix': unix, 'utc': utc} );
+    }
   }
 );
+
 
 //---------------- boilerplate ----------------
 
